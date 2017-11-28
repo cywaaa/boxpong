@@ -1,0 +1,15 @@
+{
+  "name": "boxpong",
+  "version": "1.0.0",
+  "description": "A game created through socket.io",
+  "main": "BoxPong.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Flores and Cyra Montano",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^2.0.4"
+  }
+}
