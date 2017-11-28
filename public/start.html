@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script type="text/javascript" src="BoxPong.js"></script>
+		<link href="BoxPong.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io();
+		</script>
+
+		<div id="start">
+			<button type="button">Play</button>
+			<input type="submit" placeholder="Enter name" name="">
+
+		</div>
+
+		<div id="box">
+		</div>
+		<div id="gameArea">
+			<div id="scoreboard">
+				<p> NAME </p>
+				<p> SCORE </p>
+			</div>
+			<div id="table" class="Absolute-Center">
+				<img src="gameplay.jpg">
+				<!-- <div id="line"></div> -->
+			</div>
+			<div id="meter">
+				<div id="force">
+				</div>
+			</div>
+			<div id="sight">
+			</div>
+		</div>
+	</body>
+<html>
