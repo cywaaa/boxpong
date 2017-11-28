@@ -13,10 +13,12 @@ function initialize(){
 
 function pressed(){
 	if(event.keyCode == "37"&&!throwing){
-		
+		left = 50;
+		$("#ball1").animate({left: "-=" + left + 'px'});
 	}
 	if(event.keyCode =="39"&&!throwing){
-
+		left = 50;
+		$("#ball1").animate({left: "+=" + left + 'px'});
 	}
 	if(event.keyCode =="16"){
 		throwing = true;
@@ -52,4 +54,5 @@ function released(event){
 		force = 0;
 		// document.getElementById("force").style.width = force + '%';
 	}
+	$('#ball1').stop(true);
 }
