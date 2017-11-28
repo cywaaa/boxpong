@@ -13,18 +13,31 @@ function initialize(){
 
 function pressed(){
 	if(event.keyCode == "37"&&!throwing){
-		left = 50;
-		$("#ball1").animate({left: "-=" + left + 'px'});
+		if(parseFloat($("#ball1").css('left'))<="-180"){
+			$('#ball1').stop(true);
+		}
+		else{
+			left = 10;
+			$("#ball1").animate({left: "-=" + left + 'px'}, 'fast');
+			console.log($("#ball1").css('left'));
+		}	
 	}
 	if(event.keyCode =="39"&&!throwing){
-		left = 50;
-		$("#ball1").animate({left: "+=" + left + 'px'});
+		if(parseFloat($("#ball1").css('left'))>="180"){
+			$('#ball1').stop(true);
+		}
+		else{
+			left = 10;
+			$("#ball1").animate({left: "+=" + left + 'px'}, 'fast');
+			console.log($("#ball1").css('left'));
+		}
 	}
 	if(event.keyCode =="16"){
 		throwing = true;
 		console.log("Shift");//or if Space 32
 		shoot();
 	}
+	
 }
 
 function shoot(){
@@ -52,7 +65,9 @@ function released(event){
 		var final_force = force;
 		console.log('final_force: '+ final_force);
 		force = 0;
-		// document.getElementById("force").style.width = force + '%';
+		alert("Aim: " + $("#ball1").css('left') + " Force: " + final_force);
+		throwing = false;
 	}
 	$('#ball1').stop(true);
+
 }
