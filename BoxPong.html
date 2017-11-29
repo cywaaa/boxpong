@@ -1,0 +1,195 @@
+<html>
+	<head>
+		<script type="text/javascript" src="BoxPong.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link href="BoxPong.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io();
+		</script>
+
+		<div id="start">
+			<input type="text" placeholder="Enter name" name="">
+			<button type="button">Play</button>
+		</div>
+
+		
+		<div id="gameArea">
+			<div id="scoreboard">
+				<p> NAME </p>
+				<p> SCORE </p>
+			</div>
+
+			<div id="ball2">
+			</div>
+
+			<div id="table" class="Absolute-Center">
+				<img src="gameplay.jpg">
+				<!-- <div id="line"></div> -->
+			</div>
+
+			<div id="ball1">
+			</div>
+
+			<div id="meter">
+				<div id="force">
+				</div>
+			</div>
+
+			<div id="sight">
+			</div>
+
+		</div>
+<!-- 		<table style="width: 164px;">
+			<tbody>
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td></td>
+					<td>o</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td>o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr style="height: 23px;">
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;o</td>
+					<td></td>
+					<td>&nbsp;o</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				</tbody>
+			</table> -->
+<!-- DivTable.com -->
+	</body>
+</html>
