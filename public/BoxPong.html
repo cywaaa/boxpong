@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="BoxPong.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link href="BoxPong.css" rel="stylesheet"/>
 	</head>
 	<body>
@@ -22,11 +23,18 @@
 				<p> SCORE </p>
 			</div>
 
-			<div id="ball2">
-			</div>
+			
 
 			<div id="table" class="Absolute-Center">
-				<!-- <img src="gameplay.jpg" alt="" usemap="#Map" />
+				<div id="img" style="width: 370px; height: 645px; border: 5px solid yellow;">
+					<div id="ball2">
+					</div>
+					<img src="gameplay.jpg" usemap="#image-map" style="border: 5px solid white;">
+					<div id="ball1">
+					</div>
+				</div>
+				<!-- <div id="line"></div> -->
+=				<!-- <img src="gameplay.jpg" alt="" usemap="#Map" />
 				<map name="Map" id="Map">
 					
 				    <area id="box1" alt="" title="" href="#" shape="poly" coords="42,16,42,52,78,52,78,17" />
@@ -54,7 +62,7 @@
 				</map> -->
 
 
-				<img src="gameplay.jpg" usemap="#image-map">
+				<!-- <img src="gameplay.jpg" usemap="#image-map"> -->
 
 				<map name="image-map">
 				    <area target="" alt="box1" title="box1" href="" coords="41,17,79,54" shape="rect">
@@ -78,12 +86,9 @@
 				    <area target="" alt="box19" title="box19" href="" coords="201,541,239,579" shape="rect">
 				    <area target="" alt="box20" title="box20" href="" coords="281,541,319,579" shape="rect">
 				</map>
-
-
 			</div>
 
-			<div id="ball1">
-			</div>
+			
 
 			<div id="meter">
 				<div id="force">
