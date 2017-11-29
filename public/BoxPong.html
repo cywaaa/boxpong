@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="BoxPong.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link href="BoxPong.css" rel="stylesheet"/>
 	</head>
 	<body>
@@ -21,16 +22,21 @@
 				<p> SCORE </p>
 			</div>
 
-			<div id="ball2">
-			</div>
+			
 
 			<div id="table" class="Absolute-Center">
-				<img src="gameplay.jpg">
+				<div id="img" style="width: 370px; height: 645px; border: 5px solid yellow;">
+					<div id="ball2">
+					</div>
+					<img src="gameplay.jpg" style="border: 5px solid white;">
+					<div id="ball1">
+					</div>
+				</div>
 				<!-- <div id="line"></div> -->
+				
 			</div>
 
-			<div id="ball1">
-			</div>
+			
 
 			<div id="meter">
 				<div id="force">
