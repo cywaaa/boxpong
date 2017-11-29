@@ -58,6 +58,7 @@ function shoot(){
 	}
 	document.getElementById("force").style.width = force + '%';
 	console.log("Force: " + force);
+	window.distance = 600 * (force/100);
 }
 
 function released(event){
@@ -65,9 +66,12 @@ function released(event){
 		var final_force = force;
 		console.log('final_force: '+ final_force);
 		force = 0;
-		alert("Aim: " + $("#ball1").css('left') + " Force: " + final_force);
+		alert("Aim: " + $("#ball1").css('left') + " Force: " + final_force + " Distance: " + distance);
+		
+		$("#ball1").animate({top: (-distance) + 'px'},'slow');
 		throwing = false;
 	}
-	$('#ball1').stop(true);
-
+	else{
+		$('#ball1').stop(true);
+	}
 }
