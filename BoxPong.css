@@ -1,5 +1,5 @@
 body {
-	background-image: url(wall.png); 
+	background-image: url(res/wall.png); 
 }
 
 #gameArea{
@@ -97,6 +97,7 @@ body {
 	top: 80px;
 	left: 45px;
 	border: solid 5px white;
+	margin: 0;
 }
 
 /*h1{

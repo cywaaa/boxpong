@@ -23,31 +23,18 @@ var express = require('express')
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var numUsers = 0;
 
-app.use(express.static(__dirname + '/')); 
+app.use(express.static(__dirname + '/public')); 
 //redirect / to our index.html file
 app.get('/', function(req, res,next) {  
     res.sendFile(__dirname + '/BoxPong.html');
 });
 
 io.on('connection', function(socket){
-	console.log('a user connected');
-	numUsers++
-	console.log("# of users connected: " + numUsers);
 	socket.on('shot details', function(shotDetails){
-		console.log('Force: '+ shotDetails.final_force + " X position: " + shotDetails.x + " Y position: " + shotDetails.y);
-		io.emit('receive', { for: 'everyone' });
-	});
-	socket.on('disconnect', function(socket){
-		console.log("A user disconnected");
-		numUsers--;
-		console.log("# of users connected: " + numUsers);
+		console.log('Force: '+ shotDetails.final_force);
 	})
-
 });
-
-
 
 
 //start our web server and socket.io server listening

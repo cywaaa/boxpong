@@ -8,11 +8,11 @@
 	<body>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			var socket = io('http://localhost');
+			var socket = io();
 		</script>
 
 		const io = require('socket.io-client');
-		
+
 
 		<div id="start">
 			<input type="text" placeholder="Enter name" name="">
@@ -28,10 +28,10 @@
 
 			<div id="table" class="Absolute-Center">
 				<div id="img" style="width: 370px; height: 645px; border: 5px solid yellow;">
-				<div id="box" class="boxes"></div>
+				<!-- <div id="box" class="boxes"></div> -->
 					<div id="ball2">
 					</div>
-					<img src="gameplay.jpg" usemap="#image-map" style="border: 5px solid white;">
+					<img src="res/gameplay.jpg" usemap="#image-map" style="border: 5px solid white;">
 					<div id="ball1">
 					</div>
 				</div>

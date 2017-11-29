@@ -11,17 +11,16 @@ function initialize(){
 	document.onkeyup = released;
 }
 
-// function createBoxes(){
-// 	for(x=0; x<=20; x++){
-// 		var table = document.getElementById('table');
-// 	}
-// }
+function createBoxes(){
+	for(x=0; x<=20; x++){
+		var table = document.getElementById('table');
+	}
+}
 
 function pressed(){
 	if(event.keyCode == "37"&&!throwing){
 		if(parseFloat($("#ball1").css('left'))<="-180"){
 			$('#ball1').stop(true);
-
 		}
 		else{
 			left = 10;
@@ -79,14 +78,14 @@ function released(event){
 		throwing = false;
 		console.log('final_force: '+ final_force);
 		var shotDetails = {
-			final_force : final_force,
-			x : x,
-			y : y
+			final_force : final_force;
+			x : x;
+			y : y;
 		};
+		alert(shotDetails);
 		socket.emit('shot details', shotDetails);
 	}
 	else{
 		$('#ball1').stop(true);
 	}
 }
-socket.on('playStart', shotDetails);
