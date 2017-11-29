@@ -88,6 +88,17 @@ body {
 #scoreboard{
 	position: absolute;
 }
+
+.boxes{
+	height: 30px;
+	width: 30px;
+	background-color: red;
+	position: relative;
+	top: 80px;
+	left: 45px;
+	border: solid 5px white;
+}
+
 /*h1{
 	color: red;
 }*/

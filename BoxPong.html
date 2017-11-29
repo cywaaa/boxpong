@@ -1,20 +1,24 @@
 <html>
 	<head>
-		<script type="text/javascript" src="BoxPong.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="BoxPong.js"></script>	
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<link href="BoxPong.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			var socket = io();
+			var socket = io('http://localhost');
 		</script>
+
+		const io = require('socket.io-client');
+		
 
 		<div id="start">
 			<input type="text" placeholder="Enter name" name="">
 			<button type="button">Play</button>
+			<button type="button">Help</button>
 		</div>
-
 		
 		<div id="gameArea">
 			<div id="scoreboard">
@@ -22,18 +26,68 @@
 				<p> SCORE </p>
 			</div>
 
-			
-
 			<div id="table" class="Absolute-Center">
 				<div id="img" style="width: 370px; height: 645px; border: 5px solid yellow;">
+				<div id="box" class="boxes"></div>
 					<div id="ball2">
 					</div>
-					<img src="gameplay.jpg" style="border: 5px solid white;">
+					<img src="gameplay.jpg" usemap="#image-map" style="border: 5px solid white;">
 					<div id="ball1">
 					</div>
 				</div>
 				<!-- <div id="line"></div> -->
-				
+=				<!-- <img src="gameplay.jpg" alt="" usemap="#Map" />
+				<map name="Map" id="Map">
+					
+				    <area id="box1" alt="" title="" href="#" shape="poly" coords="42,16,42,52,78,52,78,17" />
+				    <area id="box2" alt="" title="" href="#" shape="poly" coords="122,16,123,53,159,53,159,16" />
+				    <area id="box3" alt="" title="" href="#" shape="poly" coords="203,16,203,52,238,53,239,17" />
+				    <area id="box4" alt="" title="" href="#" shape="poly" coords="283,16,283,52,319,52,319,17" />
+				    <area id="box5" alt="" title="" href="#" shape="poly" coords="82,57,83,92,118,92,119,57" />
+				    <area id="box6" alt="" title="" href="#" shape="poly" coords="163,58,163,93,199,94,198,57" />
+				    <area id="box7" alt="" title="" href="#" shape="poly" coords="243,57,243,93,278,92,279,56" />
+				    <area id="box8" alt="" title="" href="#" shape="poly" coords="123,97,122,133,158,134,159,98" />
+				    <area id="box9" alt="" title="" href="#" shape="poly" coords="203,98,203,133,239,134,239,97" />
+				    <area id="box10" alt="" title="" href="#" shape="poly" coords="163,136,163,173,199,173,198,137" />
+
+				    
+				    <area id="box11" alt="" title="" href="#" shape="poly" coords="162,422,163,458,199,458,198,421" />
+				    <area id="box12" alt="" title="" href="#" shape="poly" coords="122,461,123,498,158,498,158,462" />
+				    <area id="box13" alt="" title="" href="#" shape="poly" coords="203,461,203,497,238,497,238,462" />
+				    <area id="box14" alt="" title="" href="#" shape="poly" coords="83,502,83,537,118,537,118,502" />
+				    <area id="box15" alt="" title="" href="#" shape="poly" coords="163,502,163,538,197,537,199,502" />
+				    <area id="box16" alt="" title="" href="#" shape="poly" coords="243,502,243,538,279,537,279,502" />
+				    <area id="box17" alt="" title="" href="#" shape="poly" coords="42,542,42,577,79,578,78,542" />
+				    <area id="box18" alt="" title="" href="#" shape="poly" coords="123,542,122,578,159,578,159,542" />
+				    <area id="box19" alt="" title="" href="#" shape="poly" coords="203,542,203,577,238,578,239,542" />
+				    <area id="box20" alt="" title="" href="#" shape="poly" coords="283,542,283,577,319,578,319,542" />
+				</map> -->
+
+
+				<!-- <img src="gameplay.jpg" usemap="#image-map"> -->
+
+				<map name="image-map">
+				    <area target="" alt="box1" title="box1" href="" coords="41,17,79,54" shape="rect">
+				    <area target="" alt="box2" title="box2" href="" coords="121,16,159,54" shape="rect">
+				    <area target="" alt="box3" title="box3" href="" coords="201,16,239,54" shape="rect">
+				    <area target="" alt="box4" title="box4" href="" coords="281,16,319,54" shape="rect">
+				    <area target="" alt="box5" title="box5" href="" coords="81,56,119,94" shape="rect">
+				    <area target="" alt="box6" title="box6" href="" coords="161,56,199,94" shape="rect">
+				    <area target="" alt="box7" title="box7" href="" coords="241,56,279,94" shape="rect">
+				    <area target="" alt="box8" title="box8" href="" coords="121,96,159,134" shape="rect">
+				    <area target="" alt="box9" title="box9" href="" coords="201,96,239,134" shape="rect">
+				    <area target="" alt="box10" title="box10" href="" coords="161,136,199,174" shape="rect">
+				    <area target="" alt="box11" title="box11" href="" coords="161,421,199,459" shape="rect">
+				    <area target="" alt="box12" title="box12" href="" coords="121,461,159,499" shape="rect">
+				    <area target="" alt="box13" title="box13" href="" coords="201,461,239,499" shape="rect">
+				    <area target="" alt="box14" title="box14" href="" coords="81,501,119,539" shape="rect">
+				    <area target="" alt="box15" title="box15" href="" coords="161,501,199,539" shape="rect">
+				    <area target="" alt="box16" title="box16" href="" coords="241,501,279,539" shape="rect">
+				    <area target="" alt="box17" title="box17" href="" coords="41,541,79,579" shape="rect">
+				    <area target="" alt="box18" title="box18" href="" coords="121,541,159,579" shape="rect">
+				    <area target="" alt="box19" title="box19" href="" coords="201,541,239,579" shape="rect">
+				    <area target="" alt="box20" title="box20" href="" coords="281,541,319,579" shape="rect">
+				</map>
 			</div>
 
 			
@@ -47,154 +101,5 @@
 			</div>
 
 		</div>
-<!-- 		<table style="width: 164px;">
-			<tbody>
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td></td>
-					<td>o</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td>o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				<tr style="height: 23px;">
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;o</td>
-					<td></td>
-					<td>&nbsp;o</td>
-					<td>&nbsp;</td>
-				</tr>
-
-				</tbody>
-			</table> -->
-<!-- DivTable.com -->
 	</body>
 </html>

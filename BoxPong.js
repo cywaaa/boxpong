@@ -11,6 +11,12 @@ function initialize(){
 	document.onkeyup = released;
 }
 
+function createBoxes(){
+	for(x=0; x<=20; x++){
+		var table = document.getElementById('table');
+	}
+}
+
 function pressed(){
 	if(event.keyCode == "37"&&!throwing){
 		if(parseFloat($("#ball1").css('left'))<="-180"){
@@ -62,14 +68,16 @@ function shoot(){
 }
 
 function released(event){
+	// alert();
 	if(event.keyCode == "16"){
 		var final_force = force;
 		console.log('final_force: '+ final_force);
 		force = 0;
-		alert("Aim: " + $("#ball1").css('left') + " Force: " + final_force + " Distance: " + distance);
+		//alert("Aim: " + $("#ball1").css('left') + " Force: " + final_force + " Distance: " + distance);
 		
-		$("#ball1").animate({top: (-distance) + 'px'},'slow');
+		$("#ball1").animate({top: (-distance) + 'px'},1000);
 		throwing = false;
+
 	}
 	else{
 		$('#ball1').stop(true);
