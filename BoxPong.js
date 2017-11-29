@@ -89,4 +89,4 @@ function released(event){
 		$('#ball1').stop(true);
 	}
 }
-socket.on('playStart', shotDetails);
+// socket.on('playStart', shotDetails);
