@@ -32,18 +32,47 @@ app.get('/', function(req, res,next) {
 });
 
 io.on('connection', function(socket){
-	console.log('a user connected');
-	numUsers++
-	console.log("# of users connected: " + numUsers);
+	
+	socket.on('add player',function(){
+		console.log('a user connected');
+		numUsers++;
+		console.log("# of users connected: " + numUsers);
+		if(numUsers<=2){
+			io.emit('receive', numUsers);
+			if(numUsers==2){
+				io.emit('gameStart', "start");
+				//Unfinished
+			}
+		}
+		else if(numUsers>2){
+			io.emit('receive', 'false');
+		}
+		else{
+		}
+	});
+
 	socket.on('shot details', function(shotDetails){
 		console.log('Force: '+ shotDetails.final_force + " X position: " + shotDetails.x + " Y position: " + shotDetails.y);
-		io.emit('receive', { for: 'everyone' });
+		// io.emit('receive', { for: 'everyone' });
 	});
+
 	socket.on('disconnect', function(socket){
 		console.log("A user disconnected");
-		numUsers--;
+		if(numUsers<0){
+			numUsers--;
+		}
 		console.log("# of users connected: " + numUsers);
-	})
+	});
+
+	socket.on('move left', function(){
+		console.log("move Left");
+		socket.broadcast.emit('mirror left');
+	});
+
+	socket.on('move right', function(){
+		console.log("move Right");
+		socket.broadcast.emit('mirror right');
+	});
 
 });
 
