@@ -37,6 +37,9 @@ body {
 
 #table {
 	margin-left: 25%;
+	width: 370px;
+	height: 645px;
+	border: 5px solid yellow;
 }
 
 #table > img {
