@@ -131,6 +131,37 @@ body {
 	left: 285px;
 }
 
+#box4 {
+	top: 80px;
+	left: 85px;
+}
+
+#box5 {
+	top: 80px;
+	left: 165px;
+}
+
+#box6 {
+	top: 80px;
+	left: 245px;
+}
+
+#box7 {
+	top: 120px;
+	left: 125px;
+}
+
+#box8 {
+	top: 120px;
+	left: 205px;
+}
+
+#box9 {
+	top: 160px;
+	left: 165px;
+}
+
+
 /*h1{
 	color: red;
 }*/
