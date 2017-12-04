@@ -99,21 +99,36 @@ body {
 .boxes{
 	height: 30px;
 	width: 30px;
-	background-color: red;
-	position: relative;
+	background-color: #E74C3C;
+	position: absolute;
 	border: solid 5px white;
 	margin: 0px;
 	overflow: hidden;
 }
 
-#box0{
-	top: 80px;
+#img {
+	display: inline-block;
+	position: relative;
+}
+
+#box0 {
+	top: 40px;
 	left: 45px;
 }
 
 #box1{
-	top: 80px;
-	left: 105px;
+	top: 40px;
+	left: 125px;
+}
+
+#box2 {
+	top: 40px;
+	left: 205px;
+}
+
+#box3 {
+	top: 40px;
+	left: 285px;
 }
 
 /*h1{
