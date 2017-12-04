@@ -32,12 +32,13 @@ app.get('/', function(req, res,next) {
 });
 
 io.on('connection', function(socket){
-	
 	socket.on('add player',function(){
 		console.log('a user connected');
-		numUsers++;
-		console.log("# of users connected: " + numUsers);
-		if(numUsers<=2){
+		
+		
+		if(numUsers<2){
+			numUsers++;
+			console.log("# of users connected: " + numUsers);
 			io.emit('receive', numUsers);
 			if(numUsers==2){
 				io.emit('gameStart', "start");
@@ -58,25 +59,32 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(socket){
 		console.log("A user disconnected");
-		if(numUsers<0){
+		if(numUsers>0){
 			numUsers--;
+			io.emit('playerDisconnect');
 		}
 		console.log("# of users connected: " + numUsers);
 	});
 
-	socket.on('move left', function(){
-		console.log("move Left");
-		socket.broadcast.emit('mirror left');
+	socket.on('move left', function(x){
+		console.log("move Left Sending to ball 2: " + x);
+		console.log("Sending to ball 2: " + x)
+
+		socket.broadcast.emit('mirror left',x);
 	});
 
-	socket.on('move right', function(){
-		console.log("move Right");
-		socket.broadcast.emit('mirror right');
+	socket.on('move right', function(x){
+		console.log("move Right sending to ball 2: " + x) ;
+		console.log("Sending to ball 2: " + x)
+
+		socket.broadcast.emit('mirror right',x);
+	});
+
+	socket.on('move stop', function(){
+		socket.broadcast.emit('stop');
 	});
 
 });
-
-
 
 
 //start our web server and socket.io server listening
