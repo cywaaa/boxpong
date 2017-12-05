@@ -40,19 +40,18 @@ function initBoxes(){
 function gameChanges(){
 
 	$("#img").on('click', function(e){
-		if(turn!=false && playing!=false){
+		if(turn!=false && playing!=false && throwing==false){
 			var x = e.pageX - this.offsetLeft;
-			// alert()
 			if(x>=350){
 				x=350;
 			}
 			newPosition = x-180;
-			// alert( "X is: " + x + " Ball is " + $('#ball1').position().left + " Position should be: " + newPosition);
 			moveBall(newPosition);
 		}
 	});
 
 	socket.on('mirror', function(x){
+
 		$("#ball2").animate({left: x + "px"}, 'fast');
 	});
 
@@ -61,9 +60,17 @@ function gameChanges(){
 	});
 
 	socket.on('turn', function(){
+		throwing = false;
 		turn = true;
+		$("#ball2").animate({top: 0 + "px"}, 1000);
+		$("#ball2").animate({left: 0 + "px"}, 1000);
+		alert(" Your turn! ");
 	})
 
+	socket.on('mirrorBox', function(boxId){
+			mirrorBoxId = boxId.concat(boxId);
+			$("#box" + mirrorBoxId).hide();
+	})
 
 	socket.on('gameStart', function(){
 		playing = true;
@@ -180,6 +187,7 @@ function released(event){
 			socket.emit('shotBall', distance);
 			$("#ball1").animate({top: (-distance) + 'px'},1000, function() {
        console.log("Ball position: Left: " + $("#ball1").position().left + " Top: " + $("#ball1").position().top);
+			 socket.emit('changeTurn');
 			 var ballPosition = {
  				x: $("#ball1").position().left + 180,
  				y: $("#ball1").position().top + 10
@@ -190,7 +198,7 @@ function released(event){
  			checkHit(ballPosition);
   		});
 
-			throwing = false;
+			throwing = false; //TO MOVE
 			console.log('final_force: '+ final_force);
 			var shotDetails = {
 				final_force : final_force,
@@ -198,32 +206,27 @@ function released(event){
 				y : y
 			};
 			//console.log("Ball position X : " + ballPosition.x + "Ball position Y : " + ballPosition.y);
+			$("#ball1").animate({top: 0 + "px"}, 1000);
+			$("#ball1").animate({left: 0 + "px"}, 1000);
 		}
 		else{
 			$('#ball1').stop(true);
 		}
 		turn = false;
-		socket.emit('changeTurn');
+
 	}
 }
 
 function checkHit(ballPosition){
 	for(x=0; x<opponentBoxes.length; x++){
-		// console.log("Ball x: " + ballPosition.x + " " + "Ball y: " + ballPosition.y);
-		// console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y);
-		//send details of div and hit on Server
-		//remove div from docu and array
-		//
 		if(ballPosition.y>= (opponentBoxes[x].y + 5) && ballPosition.y<=((opponentBoxes[x].y + 40) - 15)
 				&&(ballPosition.x>=(opponentBoxes[x].x + 5) && ballPosition.x<=(opponentBoxes[x].x + 40)-15)
 					&& opponentBoxes[x].hit == false){
-						// console.log(" possible hit on box " + opponentBoxes[x].id);
 						$('#' + opponentBoxes[x].id).hide();
 						opponentBoxes[x].hit = true;
-
 						var hitDetails  = {
 							player : window.player,
-							boxId : opponentBoxes[x].id
+							boxId : x
 						};
 						socket.emit('hit',hitDetails);
 		}

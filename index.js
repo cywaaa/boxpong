@@ -69,10 +69,12 @@ io.on('connection', function(socket){
      if(hitDetails.player == 1){
        player1Score++;
        console.log("Player 1 scores!!!!");
+       socket.broadcast.emit('mirrorBox', hitDetails.id);
       }
       else{
         player2Score++;
         console.log("Player 2 scores!!!!");
+        socket.broadcast.emit('mirrorBox', hitDetails.id)
       }
       if(player1Score == 10){
         socket.emit('gameEnd');
