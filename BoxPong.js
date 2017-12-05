@@ -71,7 +71,6 @@ function gameChanges(){
 
 			mirrorBoxId = boxId.toString() + boxId.toString() ;
 			console.log("mirror box " + mirrorBoxId);
-			alert(" Mirror Box 2 disappear ");
 			$("#box" + mirrorBoxId).hide();
 	})
 
@@ -113,7 +112,7 @@ function addPlayer(){
 			$("#gameArea").show();
 			document.getElementById('start').style.display = "none";
 
-			
+
 			$("#play").on("submit", function() {
 				$('#name').html('Hello ' + $('#input_id').val());
 			});
