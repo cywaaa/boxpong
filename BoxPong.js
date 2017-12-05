@@ -38,9 +38,19 @@ function initBoxes(){
 
 // ON READY GAME CHANGES
 function gameChanges(){
+
+	$("#img").on('click', function(e){
+		if(turn!=false && playing!=false){
+			var x = e.pageX - this.offsetLeft;
+			$('#ball1').position().left + x;
+			alert(x);
+		}
+	});
+
+
 	socket.on('mirror left', function(x){
 		// moveRight("#ball2");
-		x=-x;
+		// x=-x;
 		mirrorLeft(x);
 		// $('#ball2').stop(true);
 	});
@@ -52,10 +62,6 @@ function gameChanges(){
 		// $('#ball2').stop(true);
 
 	});
-
-	// socket.on('stop',function(){
-	// 	$("#ball2").stop(true);
-	// });
 
 	socket.on('gameStart', function(){
 		playing = true;
@@ -71,7 +77,6 @@ function gameChanges(){
 	});
 	socket.on('gameEnd', function(){
 		playing = false;
-		//initBoxes();
 	});
 
 }
@@ -80,13 +85,14 @@ function mirrorRight(x){
 	//$("#ball2").css('left') = 0;
 	//var coordinate = parseFloat($("#ball2").css('left')) - x;
 
-	$("#ball2").animate({left: parseFloat($("#ball2").css('left')) - x }, 'fast', function(){
-		$("#ball2").stop(true);
-	});
+
 	// $("#ball2").animate({left: "-=" + x }, 'fast');
 	// alert(x);
-	console.log("Increment sent: " + x + "Current Position: " + parseFloat($("#ball2").css('left')) + "New position should be: " + (parseFloat($("#ball2").css('left')) + x));
-	console.log("Ball 2: " + parseFloat($("#ball2").css('left')));
+	console.log("Increment sent: " + x + "Current Position: " + $("#ball2").position().left + "New position should be: " + ($("#ball2").position().left + x));
+	$("#ball2").animate({left: $("#ball2").position().left + (-x) }, 'fast', function(){
+		$("#ball2").stop(true);
+	});
+	console.log("Ball 2: " + $("#ball2").position().left);
 
 
 
@@ -94,15 +100,16 @@ function mirrorRight(x){
 
 function mirrorLeft(x){
 	// $("#ball2").css('left') = 0;
-	// var coordinate = parseFloat($("#ball2").css('left')) - x;
+	// var coordinate = $("#ball2").position().left - x;
 
 	// $("#ball2").animate({left: "+=" + x }, 'fast');
-	$("#ball2").animate({left: parseFloat($("#ball2").css('left')) + x }, 'fast', function(){
-		$("#ball2").stop(true);
-	});
-	console.log("Increment sent: " + x + " Current Position: " + parseFloat($("#ball2").css('left')) + "New position should be: " + (parseFloat($("#ball2").css('left')) + x));
+
+	console.log("Increment sent: " + x + " Current Position: " + $("#ball2").position().left + "New position should be: " + ($("#ball2").position().left + x));
 		// alert(x);
-	console.log("Ball 2: " + parseFloat($("#ball2").css('left')));
+		$("#ball2").animate({left: $("#ball2").position().left + (-x) }, 'fast', function(){
+			$("#ball2").stop(true);
+		});
+	console.log("Ball 2: " + $("#ball2").position().left);
 
 
 }
@@ -143,68 +150,56 @@ function addPlayer(){
 }
 
 function pressed(){
-	if(turn!=false && playing!=false){
-		if(event.keyCode == "37"&&!throwing){
-			moveLeft("#ball1");
-		}
-		if(event.keyCode =="39"&&!throwing){
-			moveRight("#ball1");
-		}
+	// if(turn!=false && playing!=false){
+	// 	if(event.keyCode == "37"&&!throwing){
+	// 		moveLeft("#ball1");
+	// 	}
+	// 	if(event.keyCode =="39"&&!throwing){
+	// 		moveRight("#ball1");
+	// 	}
 		if(event.keyCode =="16"){
 			throwing = true;
 			console.log("Shift");//or if Space 32
 			shoot();
 		}
-	}
+	
 }
 
 function moveLeft(ball){
-	//currentPosition = parseFloat($(ball).css('left'));
-	// currentPosition = $(ball).position().left;
-	if(parseFloat($(ball).css('left'))>="180"){
+	currentPosition = $(ball).position().left;
+	if(currentPosition=="180"){
 		$("#ball1").stop(true);
 	}
 	else{
-		// var oldPosition = currentPosition;
-		console.log('moving');
 		var left = 10;
-		$("#ball1").animate({left: "-=" + left + 'px'}, 'fast', 'swing' ,{complete: function() {
-          //add your code here
-					console.log('moving');
-
-        }});
-				currentPosition = parseFloat($(ball).css('left'));
+		$("#ball1").animate({left: "-=" + left + 'px'}, 'fast');
+				currentPosition = $(ball).position().left;
 				incrementLeft = currentPosition - oldPosition;
 				//alert("Old position: " + oldPositionLeft + " Current Position: " + currentPosition + " increment: " + incrementLeft );
 				oldPosition = currentPosition;
 				console.log("Current Position: " + currentPosition);
-					socket.emit('move left', incrementLeft);
-		console.log(ball +" : " + $(ball).css('left'));
-		console.log(ball +" Position left : " + $(ball).position().left);
+				socket.emit('move left', incrementLeft);
 	}
 }
 
 function moveRight(ball){
-	currentPosition = parseFloat($(ball).css('left'));
-	if(parseFloat($(ball).css('left'))>="180"){
+	currentPosition = $(ball).position().left;
+	if(currentPosition>="180"){
 		$("#ball1").stop(true);
 	}
 	else{
 		var left = 10;
-		$("#ball1").animate({left: "+=" + left + 'px'}, 'fast','swing',{complete: function() {
-				//add your code here
-				console.log('moving');
-			}
-		});
-		//console.log(ball +" : " + $(ball).css('left'));
-		currentPosition = parseFloat($(ball).css('left'));
-		console.log(ball +" Position left : " + $(ball).position().left);
-		//currentPosition = parseFloat($(ball).css('left'));
-		incrementRight = currentPosition - oldPosition;
-		// alert("Old position: " + oldPositionRight + " Current Position: " + currentPosition + " increment: " + incrementRight );
-		oldPosition = currentPosition;
-		console.log("Current Position: " + currentPosition);
-		socket.emit('move right', incrementRight);
+		$("#ball1").animate({left: "+=" + left + 'px'}, 'fast');
+
+		console.log("Current Position: " + incrementRight);
+		if( $("#ball1").is(':animated') ) {
+			currentPosition = $(ball).position().left;
+			incrementRight = currentPosition - oldPosition;
+			oldPosition = currentPosition;
+			socket.emit('move right', incrementRight);}
+		else{
+				// socket.emit('move right', incrementRight);
+		}
 	}
 }
 
@@ -257,9 +252,6 @@ function released(event){
 		}
 		else{
 			$('#ball1').stop(true);
-			// socket.emit('move stop');
-			// socket.off('move right');
-			// socket.off('move left');
 		}
 	}
 }

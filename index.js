@@ -47,6 +47,7 @@ io.on('connection', function(socket){
 
 	socket.on('move left', function(x){
 		console.log("move Left Sending to ball 2: " + x);
+    // x=-x;
 		console.log("Sending to ball 2: " + x)
 
 		socket.broadcast.emit('mirror left',x);
@@ -54,6 +55,7 @@ io.on('connection', function(socket){
 
 	socket.on('move right', function(x){
 		console.log("move Right sending to ball 2: " + x) ;
+    // x=-x;
 		console.log("Sending to ball 2: " + x)
 
 		socket.broadcast.emit('mirror right',x);
