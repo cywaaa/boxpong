@@ -42,26 +42,28 @@ function gameChanges(){
 	$("#img").on('click', function(e){
 		if(turn!=false && playing!=false){
 			var x = e.pageX - this.offsetLeft;
-			$('#ball1').position().left + x;
-			alert(x);
+			// alert()
+			if(x>=350){
+				x=350;
+			}
+			newPosition = x-180;
+			// alert( "X is: " + x + " Ball is " + $('#ball1').position().left + " Position should be: " + newPosition);
+			moveBall(newPosition);
 		}
 	});
 
-
-	socket.on('mirror left', function(x){
-		// moveRight("#ball2");
-		// x=-x;
-		mirrorLeft(x);
-		// $('#ball2').stop(true);
+	socket.on('mirror', function(x){
+		$("#ball2").animate({left: x + "px"}, 'fast');
 	});
 
-	socket.on('mirror right', function(x){
-		// moveLeft("#ball2");
-		//x=-x;
-		mirrorRight(x);
-		// $('#ball2').stop(true);
-
+	socket.on('land', function(shot){
+		$("#ball2").animate({top: shot + "px"}, 1000);
 	});
+
+	socket.on('turn', function(){
+		turn = true;
+	})
+
 
 	socket.on('gameStart', function(){
 		playing = true;
@@ -80,40 +82,6 @@ function gameChanges(){
 	});
 
 }
-
-function mirrorRight(x){
-	//$("#ball2").css('left') = 0;
-	//var coordinate = parseFloat($("#ball2").css('left')) - x;
-
-
-	// $("#ball2").animate({left: "-=" + x }, 'fast');
-	// alert(x);
-	console.log("Increment sent: " + x + "Current Position: " + $("#ball2").position().left + "New position should be: " + ($("#ball2").position().left + x));
-	$("#ball2").animate({left: $("#ball2").position().left + (-x) }, 'fast', function(){
-		$("#ball2").stop(true);
-	});
-	console.log("Ball 2: " + $("#ball2").position().left);
-
-
-
-}
-
-function mirrorLeft(x){
-	// $("#ball2").css('left') = 0;
-	// var coordinate = $("#ball2").position().left - x;
-
-	// $("#ball2").animate({left: "+=" + x }, 'fast');
-
-	console.log("Increment sent: " + x + " Current Position: " + $("#ball2").position().left + "New position should be: " + ($("#ball2").position().left + x));
-		// alert(x);
-		$("#ball2").animate({left: $("#ball2").position().left + (-x) }, 'fast', function(){
-			$("#ball2").stop(true);
-		});
-	console.log("Ball 2: " + $("#ball2").position().left);
-
-
-}
-
 //END OF ON READY GAME CHANGES
 
 $( document ).ready(function() {
@@ -169,57 +137,18 @@ function addPlayer(){
 }
 
 function pressed(){
-	// if(turn!=false && playing!=false){
-	// 	if(event.keyCode == "37"&&!throwing){
-	// 		moveLeft("#ball1");
-	// 	}
-	// 	if(event.keyCode =="39"&&!throwing){
-	// 		moveRight("#ball1");
-	// 	}
+	if(turn!=false && playing!=false){
 		if(event.keyCode =="16"){
 			throwing = true;
 			console.log("Shift");//or if Space 32
 			shoot();
 		}
-	
-}
-
-function moveLeft(ball){
-	currentPosition = $(ball).position().left;
-	if(currentPosition=="180"){
-		$("#ball1").stop(true);
-	}
-	else{
-		var left = 10;
-		$("#ball1").animate({left: "-=" + left + 'px'}, 'fast');
-				currentPosition = $(ball).position().left;
-				incrementLeft = currentPosition - oldPosition;
-				//alert("Old position: " + oldPositionLeft + " Current Position: " + currentPosition + " increment: " + incrementLeft );
-				oldPosition = currentPosition;
-				console.log("Current Position: " + currentPosition);
-				socket.emit('move left', incrementLeft);
 	}
 }
 
-function moveRight(ball){
-	currentPosition = $(ball).position().left;
-	if(currentPosition>="180"){
-		$("#ball1").stop(true);
-	}
-	else{
-		var left = 10;
-		$("#ball1").animate({left: "+=" + left + 'px'}, 'fast');
-
-		console.log("Current Position: " + incrementRight);
-		if( $("#ball1").is(':animated') ) {
-			currentPosition = $(ball).position().left;
-			incrementRight = currentPosition - oldPosition;
-			oldPosition = currentPosition;
-			socket.emit('move right', incrementRight);}
-		else{
-				// socket.emit('move right', incrementRight);
-		}
-	}
+function moveBall(x){
+	$("#ball1").animate({left: x + "px"}, 'fast');
+	socket.emit('moveBall', x);
 }
 
 function shoot(){
@@ -251,15 +180,19 @@ function released(event){
 			var y = distance;
 			force = 0;
 
+			socket.emit('shotBall', distance);
 			$("#ball1").animate({top: (-distance) + 'px'},1000, function() {
        console.log("Ball position: Left: " + $("#ball1").position().left + " Top: " + $("#ball1").position().top);
 			 var ballPosition = {
  				x: $("#ball1").position().left + 180,
  				y: $("#ball1").position().top + 10
  			};
- 			//socket.emit('shot details', shotDetails);
+			//var landed = $("#ball1").position().top;
+
+			console.log($("#ball1").position().top);
  			checkHit(ballPosition);
   		});
+
 			throwing = false;
 			console.log('final_force: '+ final_force);
 			var shotDetails = {
@@ -272,20 +205,22 @@ function released(event){
 		else{
 			$('#ball1').stop(true);
 		}
+		turn = false;
+		socket.emit('changeTurn');
 	}
 }
 
 function checkHit(ballPosition){
 	for(x=0; x<opponentBoxes.length; x++){
-		console.log("Ball x: " + ballPosition.x + " " + "Ball y: " + ballPosition.y);
-		console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y);
+		// console.log("Ball x: " + ballPosition.x + " " + "Ball y: " + ballPosition.y);
+		// console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y);
 		//send details of div and hit on Server
 		//remove div from docu and array
 		//
 		if(ballPosition.y>= (opponentBoxes[x].y + 5) && ballPosition.y<=((opponentBoxes[x].y + 40) - 15)
 				&&(ballPosition.x>=(opponentBoxes[x].x + 5) && ballPosition.x<=(opponentBoxes[x].x + 40)-15)
 					&& opponentBoxes[x].hit == false){
-						console.log(" possible hit on box " + opponentBoxes[x].id);
+						// console.log(" possible hit on box " + opponentBoxes[x].id);
 						$('#' + opponentBoxes[x].id).hide();
 						opponentBoxes[x].hit = true;
 
@@ -295,8 +230,5 @@ function checkHit(ballPosition){
 						};
 						socket.emit('hit',hitDetails);
 		}
-	}
-	for(x=0; x<opponentBoxes.length; x++){
-		console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y + " hit? " + opponentBoxes[x].hit);
 	}
 }
