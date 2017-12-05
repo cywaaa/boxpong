@@ -68,7 +68,10 @@ function gameChanges(){
 	})
 
 	socket.on('mirrorBox', function(boxId){
-			mirrorBoxId = boxId.concat(boxId);
+
+			mirrorBoxId = boxId.toString() + boxId.toString() ;
+			console.log("mirror box " + mirrorBoxId);
+			alert(" Mirror Box 2 disappear ");
 			$("#box" + mirrorBoxId).hide();
 	})
 
