@@ -14,8 +14,27 @@ function initialize(){
 	window.down = false;
 	window.turn = false;
 	window.playing = false;
+	window.myBoxes = document.getElementsByClassName('boxes1');
+	//window.OpponentBoxes = document.getElementsByClassName('boxes2');
 	document.onkeydown = pressed;
 	document.onkeyup = released;
+	initBoxes();
+}
+
+function Box(id, posX, posY){
+	this.id = id;
+	this.x = x;
+	this.y = y
+}
+
+function initBoxes(){
+
+	for(x=0; x<myBoxes.length; x++){
+		console.log(myBoxes[x]);
+		// myBoxes[x].id = ;
+		// myBoxes[x].posX = ;
+		// myBoxes[x].posY = ;
+	}
 }
 
 // ON READY GAME CHANGES
@@ -32,7 +51,7 @@ function gameChanges(){
 		x=-x;
 		mirrorRight(x);
 		// $('#ball2').stop(true);
-		
+
 	});
 
 	socket.on('stop',function(){
@@ -48,7 +67,7 @@ function gameChanges(){
 			alert("Opponent had disconnected. Game will be terminated");
 			location.reload();
 		}
-		
+
 	});
 }
 
@@ -61,8 +80,8 @@ function mirrorRight(x){
 	// $("#ball2").animate({left: "-=" + x }, 'fast');
 	// alert(x);
 	console.log("Ball 2: " + parseFloat($("#ball2").css('left')));
-	
-	
+
+
 }
 
 function mirrorLeft(x){
@@ -73,8 +92,8 @@ function mirrorLeft(x){
 	$("#ball2").animate({left: $("#ball2").position().left + x }, 'fast');
 		// alert(x);
 	console.log("Ball 2: " + parseFloat($("#ball2").css('left')));
-	
-	
+
+
 }
 
 //END OF ON READY GAME CHANGES
@@ -115,7 +134,7 @@ function pressed(){
 			moveLeft("#ball1");
 		}
 		if(event.keyCode =="39"&&!throwing){
-			moveRight("#ball1");	
+			moveRight("#ball1");
 		}
 		if(event.keyCode =="16"){
 			throwing = true;
@@ -135,7 +154,7 @@ function moveLeft(ball){
 		// var oldPosition = currentPosition;
 		var left = 10;
 		$("#ball1").animate({left: "-=" + left + 'px'}, 'fast');
-		
+
 		currentPosition = parseFloat($(ball).css('left'));
 		incrementLeft = currentPosition - oldPositionLeft;
 		alert("Old position: " + oldPositionLeft + " Current Position: " + currentPosition + " increment: " + incrementLeft );
@@ -145,7 +164,7 @@ function moveLeft(ball){
 			socket.emit('move left', incrementLeft);
 		}
 		console.log(ball +" : " + $(ball).css('left'));
-	}	
+	}
 }
 
 function moveRight(ball){
@@ -156,7 +175,7 @@ function moveRight(ball){
 	else{
 		var left = 10;
 		$("#ball1").animate({left: "+=" + left + 'px'}, 'fast');
-		
+
 		currentPosition = parseFloat($(ball).css('left'));
 		incrementRight = currentPosition - oldPositionRight;
 		alert("Old position: " + oldPositionRight + " Current Position: " + currentPosition + " increment: " + incrementRight );
@@ -197,7 +216,7 @@ function released(event){
 			var x = $("#ball1").css('left');
 			var y = distance;
 			force = 0;
-			
+
 			$("#ball1").animate({top: (-distance) + 'px'},1000);
 			throwing = false;
 			console.log('final_force: '+ final_force);
@@ -209,12 +228,12 @@ function released(event){
 			socket.emit('shot details', shotDetails);
 		}
 		else{
-			
+
 			$('#ball1').stop(true);
 			// socket.emit('move stop');
 			// socket.off('move right');
 			// socket.off('move left');
-			
+
 		}
 	}
 }
