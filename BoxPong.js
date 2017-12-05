@@ -103,14 +103,9 @@ function addPlayer(){
 			$("#gameArea").show();
 			document.getElementById('start').style.display = "none";
 
-
-
-
-
-
 			
-			$("#play").on("click", function() {
-				$("#name").append(document.getElementById("input_id").value);
+			$("#play").on("submit", function() {
+				$('#name').html('Hello ' + $('#input_id').val());
 			});
 			//Show Game Area
 			turn = true;	//Player's 1 get's the turn
@@ -125,6 +120,8 @@ function addPlayer(){
 			alert("Player Accepted! You are player 2");
 			$("#play").hide();
 			$("#gameArea").show();
+			document.getElementById('start').style.display = "none";
+
 			//Show Game Area
 			turn = false
 			console.log("Player 2's turn: " + turn);
