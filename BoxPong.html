@@ -12,19 +12,26 @@
 		</script>
 
 		<!-- const io = require('socket.io-client'); -->
-
+		
 
 		<div id="start">
-			<input type="text" class="css-input" placeholder="Enter name" name="">
-			<button id="play" type="button" onclick="addPlayer()";>Play</button>
-			<button id="help" type="button">Help</button>
+				<input id="name" type="text" class="css-input" placeholder="Enter name" name="" />
+				<button id="play" type="button" onclick="addPlayer()";>Play</button>
+				<button id="help" type="button">Help</button>
+				<div id="welcomeDiv"  style="display:none;" class="answer_list" >
+					<h1> Waiting for opponent.</h1>
+				</div>
 		</div>
 
 		<div id="gameArea">
 			<div id="scoreboard">
-				<p> NAME </p>
-				<p> SCORE </p>
+				<p id="pname">NAME</p>
+				<p>SCORE</p>
 			</div>
+
+
+			
+
 
 			<div id="table" class="Absolute-Center">
 				<div id="img">

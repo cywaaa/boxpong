@@ -1,6 +1,8 @@
 body {
+
 	background-image: url(res/wall.png); 
 	font-family: Arial;
+	height: 1000px;
 }
 
 #gameArea{
@@ -14,6 +16,7 @@ body {
 
 #start {
 	margin: 20px;
+	margin-left: 35%;
 }
 
 #play {
@@ -98,7 +101,7 @@ body {
 }
 
 #table > img {
-	
+
 }
 
 
@@ -253,8 +256,7 @@ body {
 	color: red;
 }*/
 /*#box{
-background-color: black; 
-height: 20px; 
-width: 40px;" 
+background-color: black;
+height: 20px;
+width: 40px;"
 }*/
-
