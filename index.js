@@ -36,9 +36,9 @@ io.on('connection', function(socket){
 		// io.emit('receive', { for: 'everyone' });
 	});
 
-  socket.on('shotBall',function(x){
-    console.log("SHOT: "+ x);
-    socket.broadcast.emit('land',this.x);
+  socket.on('shotBall',function(shot){
+    console.log("SHOT: "+ shot);
+    socket.broadcast.emit('land',shot);
   });
 
 	socket.on('disconnect', function(socket){
@@ -50,7 +50,7 @@ io.on('connection', function(socket){
 		console.log("# of users connected: " + numUsers);
 	});
 
-  
+
   socket.on('moveBall',function(x){
       this.x=(-x);
       console.log("Sending coordinates: "+ this.x);
@@ -59,6 +59,10 @@ io.on('connection', function(socket){
 
 	socket.on('move stop', function(){
 		socket.broadcast.emit('stop');
+	});
+
+  socket.on('changeTurn', function(){
+		socket.broadcast.emit('turn');
 	});
 
   socket.on('hit', function(hitDetails){

@@ -56,12 +56,13 @@ function gameChanges(){
 		$("#ball2").animate({left: x + "px"}, 'fast');
 	});
 
-	socket.on('land', function(x){
-			//alert(x);
-		this.x = 605-x;
-
-		$("#ball2").animate({top: this.x + "px"}, 1000);
+	socket.on('land', function(shot){
+		$("#ball2").animate({top: shot + "px"}, 1000);
 	});
+
+	socket.on('turn', function(){
+		turn = true;
+	})
 
 
 	socket.on('gameStart', function(){
@@ -185,13 +186,15 @@ function released(event){
 		else{
 			$('#ball1').stop(true);
 		}
+		turn = false;
+		socket.emit('changeTurn');
 	}
 }
 
 function checkHit(ballPosition){
 	for(x=0; x<opponentBoxes.length; x++){
-		console.log("Ball x: " + ballPosition.x + " " + "Ball y: " + ballPosition.y);
-		console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y);
+		// console.log("Ball x: " + ballPosition.x + " " + "Ball y: " + ballPosition.y);
+		// console.log(opponentBoxes[x].id + " x: " + opponentBoxes[x].x + " y: " + opponentBoxes[x].y);
 		//send details of div and hit on Server
 		//remove div from docu and array
 		//
