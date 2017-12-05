@@ -94,6 +94,12 @@ function gameChanges(){
 }
 //END OF ON READY GAME CHANGES
 
+$( document ).ready(function() {
+			    $('#name').change(function(){
+			        $('#message').html('Hello ' + $('#name').val());
+			    });
+			});
+
 function addPlayer(){
 	socket.emit('add player');
 	socket.on('receive',function(msg){
@@ -102,12 +108,20 @@ function addPlayer(){
 		}
 		else if(msg=="1" && turn==false){
 			alert("Player 1 Accepted! You are player 1");
+
 			$("#play").hide();
 			$("#gameArea").show();
+			document.getElementById('start').style.display = "none";
+
+			
+			$("#play").on("submit", function() {
+				$('#name').html('Hello ' + $('#input_id').val());
+			});
 			//Show Game Area
 			turn = true;	//Player's 1 get's the turn
 			// while(playing==false){
-				alert("Waiting for Opponent");
+				 alert("Waiting for Opponent");
+
 			// }
 			console.log("Player 1's turn: " + turn);
 			window.player = 1;
@@ -116,6 +130,8 @@ function addPlayer(){
 			alert("Player Accepted! You are player 2");
 			$("#play").hide();
 			$("#gameArea").show();
+			document.getElementById('start').style.display = "none";
+
 			//Show Game Area
 			turn = false
 			console.log("Player 2's turn: " + turn);
