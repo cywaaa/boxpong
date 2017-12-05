@@ -1,6 +1,6 @@
 body {
 
-	background-image: url(res/wall.png); 
+	background-image: url(res/wall.png);
 	font-family: Arial;
 	height: 1000px;
 }
@@ -207,17 +207,17 @@ body {
 	left: 165px;
 }
 
-#box77 {
+#box88 {
 	top: 483px;
 	left: 125px;
 }
 
-#box88 {
+#box77 {
 	top: 483px;
 	left: 205px;
 }
 
-#box44 {
+#box66 {
 	top: 523px;
 	left: 85px;
 }
@@ -227,27 +227,27 @@ body {
 	left: 165px;
 }
 
-#box66 {
+#box44 {
 	top: 523px;
 	left: 245px;
 }
 
-#box00 {
+#box33 {
 	top: 563px;
 	left: 45px;
 }
 
-#box11 {
+#box22 {
 	top: 563px;
 	left: 125px;
 }
 
-#box22 {
+#box11 {
 	top: 563px;
 	left: 205px;
 }
 
-#box33 {
+#box00 {
 	top: 563px;
 	left: 285px;
 }

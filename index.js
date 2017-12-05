@@ -31,11 +31,6 @@ io.on('connection', function(socket){
 		}
 	});
 
-	socket.on('shot details', function(shotDetails){
-		console.log('Force: '+ shotDetails.final_force + " X position: " + shotDetails.x + " Y position: " + shotDetails.y);
-		// io.emit('receive', { for: 'everyone' });
-	});
-
   socket.on('shotBall',function(shot){
     console.log("SHOT: "+ shot);
     socket.broadcast.emit('land',shot);
