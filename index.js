@@ -36,6 +36,11 @@ io.on('connection', function(socket){
 		// io.emit('receive', { for: 'everyone' });
 	});
 
+  socket.on('shotBall',function(x){
+    console.log("SHOT: "+ x);
+    socket.broadcast.emit('land',this.x);
+  });
+
 	socket.on('disconnect', function(socket){
 		console.log("A user disconnected");
 		if(numUsers>0){
@@ -45,21 +50,12 @@ io.on('connection', function(socket){
 		console.log("# of users connected: " + numUsers);
 	});
 
-	socket.on('move left', function(x){
-		console.log("move Left Sending to ball 2: " + x);
-    // x=-x;
-		console.log("Sending to ball 2: " + x)
-
-		socket.broadcast.emit('mirror left',x);
-	});
-
-	socket.on('move right', function(x){
-		console.log("move Right sending to ball 2: " + x) ;
-    // x=-x;
-		console.log("Sending to ball 2: " + x)
-
-		socket.broadcast.emit('mirror right',x);
-	});
+  
+  socket.on('moveBall',function(x){
+      this.x=(-x);
+      console.log("Sending coordinates: "+ this.x);
+      socket.broadcast.emit('mirror',this.x);
+  });
 
 	socket.on('move stop', function(){
 		socket.broadcast.emit('stop');
