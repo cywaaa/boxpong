@@ -50,8 +50,14 @@ function gameChanges(){
 		}
 	});
 
-	socket.on('mirror', function(x){
+	socket.on('returnPlayers', function(user){
+		for(var x=0;x<2;x++){
+			$('name').append(user[x].name);
+			$('score').append(user[x].score)
+		}
+	})
 
+	socket.on('mirror', function(x){
 		$("#ball2").animate({left: x + "px"}, 'fast');
 	});
 
@@ -68,7 +74,6 @@ function gameChanges(){
 	})
 
 	socket.on('mirrorBox', function(boxId){
-
 			mirrorBoxId = boxId.toString() + boxId.toString() ;
 			console.log("mirror box " + mirrorBoxId);
 			$("#box" + mirrorBoxId).hide();
@@ -86,18 +91,27 @@ function gameChanges(){
 		}
 
 	});
+
+	socket.on('scoreChange', function (playerScore){
+		if(playerScore.player==1){
+			$('#score1').html(playerScore.score);
+		}
+		else if(playerScore.player==2){
+			$('#score2').html(playerScore.score);
+		}
+		else{
+
+		}
+	});
+
 	socket.on('gameEnd', function(){
 		playing = false;
+		alert('Game Over!!!!!!');
+		window.reload();
 	});
 
 }
 //END OF ON READY GAME CHANGES
-
-$( document ).ready(function() {
-			    $('#name').change(function(){
-			        $('#message').html('Hello ' + $('#name').val());
-			    });
-			});
 
 function addPlayer(){
 	socket.emit('add player');
@@ -106,22 +120,17 @@ function addPlayer(){
 			alert("A game is currently taking place (Maximum of 2 players only)");
 		}
 		else if(msg=="1" && turn==false){
-			alert("Player 1 Accepted! You are player 1");
-
+			alert("Player 1 Accepted! You are player 1. You get to throw first.");
 			$("#play").hide();
 			$("#gameArea").show();
 			document.getElementById('start').style.display = "none";
-
-
 			$("#play").on("submit", function() {
-				$('#name').html('Hello ' + $('#input_id').val());
+				// $('#name').html('Hello ' + $('#input_id').val());
+				socket.emit('receiveName', $('#input_id').val());
 			});
 			//Show Game Area
 			turn = true;	//Player's 1 get's the turn
-			// while(playing==false){
-				 alert("Waiting for Opponent");
-
-			// }
+			alert("Waiting for Opponent");
 			console.log("Player 1's turn: " + turn);
 			window.player = 1;
 		}
@@ -149,6 +158,7 @@ function pressed(){
 			console.log("Shift");//or if Space 32
 			shoot();
 		}
+		else{}
 	}
 }
 

@@ -2,7 +2,7 @@ body {
 
 	background-image: url(res/wall.png);
 	font-family: Arial;
-	height: 1000px;
+	height: 100%;
 }
 
 #gameArea{
@@ -27,6 +27,7 @@ body {
   background: #34d95a;
   padding: 8px 20px 8px 20px;
   text-decoration: none;
+	position: relative
 }
 
 #play:hover {
@@ -96,8 +97,12 @@ body {
 	margin-left: 25%;
 	width: 370px;
 	height: 645px;
-	border: 5px solid black;
+}
 
+#logo{
+	height: 400px;
+	width: 600px;
+	margin-top: 20%;
 }
 
 #table > img {

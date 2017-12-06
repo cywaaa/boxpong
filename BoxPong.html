@@ -15,18 +15,22 @@
 
 
 		<div id="start">
-				<input id="input_id" type="text" class="css-input" placeholder="Enter name" name="" />
-				<button id="play" type="button" onclick="addPlayer()";>Play</button>
-				<button id="help" type="button">Help</button>
-				<div id="welcomeDiv"  style="display:none;" class="answer_list" >
-					<h1> Waiting for opponent.</h1>
+				<img id="logo" src="public/BoxPong.png" />
+				<div>
+					<button id="play" style="margin-left: 20%;" type="button" onclick="addPlayer()";>Play</button>
 				</div>
+				<!-- <div id="welcomeDiv"  style="display:none;" class="answer_list" >
+					<h1> Waiting for opponent.</h1>
+				</div> -->
 		</div>
 
 		<div id="gameArea">
 			<div id="scoreboard">
-				<p id="name">NAME</p>
-				<p>SCORE</p>
+				<!-- <p id="name1">Player 1: </p> -->
+				<p>Player 1: </p>
+				<p id="score1">0</p>
+				<p>Player 2: </p>
+				<p id="score2">0</p>
 			</div>
 
 			<div id="info">

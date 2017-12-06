@@ -5,6 +5,13 @@ var io = require('socket.io')(server);
 var numUsers = 0;
 var player1Score = 0;
 var player2Score = 0;
+var users=[];
+var index=0;
+
+function User(name){
+  this.name = name;
+  this.score = 0;
+}
 
 app.use(express.static(__dirname + '/'));
 //redirect / to our index.html file
@@ -21,15 +28,16 @@ io.on('connection', function(socket){
 			io.emit('receive', numUsers);
 			if(numUsers==2){
 				io.emit('gameStart', "start");
-				//Unfinished
 			}
 		}
 		else if(numUsers>2){
 			io.emit('receive', 'false');
+      // socket.disconnect();
 		}
 		else{
 		}
 	});
+
 
   socket.on('shotBall',function(shot){
     console.log("SHOT: "+ shot);
@@ -41,20 +49,17 @@ io.on('connection', function(socket){
 		if(numUsers>0){
 			numUsers--;
 			io.emit('playerDisconnect');
+      player1Score = 0;
+      player2Score = 0;
 		}
 		console.log("# of users connected: " + numUsers);
 	});
-
 
   socket.on('moveBall',function(x){
       this.x=(-x);
       console.log("Sending coordinates: "+ this.x);
       socket.broadcast.emit('mirror',this.x);
   });
-
-	socket.on('move stop', function(){
-		socket.broadcast.emit('stop');
-	});
 
   socket.on('changeTurn', function(){
 		socket.broadcast.emit('turn');
@@ -64,12 +69,22 @@ io.on('connection', function(socket){
      if(hitDetails.player == 1){
        player1Score++;
        console.log("Player 1 scores!!!! Player 1 score: " + player1Score);
-       socket.broadcast.emit('mirrorBox', hitDetails.boxId);
+       var playerScore= {
+   				player: 1,
+   				score: player1Score
+   			};
+        io.emit('scoreChange',playerScore);
+        socket.broadcast.emit('mirrorBox', hitDetails.boxId);
       }
       else{
         player2Score++;
         console.log("Player 2 scores!!!! Player 2 score: " + player2Score);
-        socket.broadcast.emit('mirrorBox', hitDetails.boxId)
+        var playerScore = {
+    				player: 2,
+    				score: player2Score
+    			};
+        io.emit('scoreChange',playerScore);
+        socket.broadcast.emit('mirrorBox', hitDetails.boxId);
       }
       if(player1Score == 10){
         socket.emit('gameEnd');
